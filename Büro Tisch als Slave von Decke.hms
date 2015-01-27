@@ -1,0 +1,22 @@
+! Programmname: Büro Tisch als Slave von Decke
+! Dennis Krümmel, 2015
+!
+! Schaltet eine Lampe (Slave) ein bzw. aus, wenn die erste Lampe (Master) ausgeschaltet wird, obwohl sie schon aus ist.
+
+var schalterMaster=2330; ! ID des Deckenschalters
+var schalterSlave=1436; ! ID des Tischschalters
+
+var dpMaster = dom.GetObject(schalterMaster);
+var dpSlave = dom.GetObject(schalterSlave);
+
+if (dpMaster.Value() == false) {
+	if (dpMaster.LastValue() == false) {
+		if (dpSlave.Value() == true) {
+			WriteLine("aus");
+			dpSlave.State(0);
+		} else {
+			WriteLine("an");
+			dpSlave.State(1);
+		}
+	}
+}

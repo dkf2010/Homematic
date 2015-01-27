@@ -1,0 +1,21 @@
+! Programmname: Alle Lichter aus
+! Dennis Krümmel, 2015
+!
+! Schaltet alle Lichter (o.ä.) aus. Basierend auf den IDs des Schalter-States.
+! Das übliche "Lichter-Aus"-Script verwende ich nicht. Dies liest per item.state() des aktuellen Wert des Schalters aus. Da ich ein Master-Slav-Script laufen habe, was auf "2 Mal AUS tasten" reagiert, würden bei mir einige Lampen wieder an gehen, wenn das Script alle Schalter aus schaltet, obwohl sie schon aus sind.
+!
+! Die IDs habe ich mit folgender Erweiterung herausbekommen:
+! http://www.christian-luetgens.de/homematic/db-access/anwendung/Anwendung.htm
+
+
+var licht_array = "1351	1386	1436	1486	1666	1718	1782	2330	2447	1576"; ! separiert mit <TAB> oder \t
+
+string itemID;
+foreach(itemID, licht_array) {
+    var item = dom.GetObject(itemID);
+
+		if (item.Value() != false) {
+			item.State(0);
+		}
+    }
+}
